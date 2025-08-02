@@ -13,8 +13,7 @@ public interface AttendeeRepository extends JpaRepository<Attendee, Integer> {
 
 	Attendee findByContact(long contact);
 	
-	@Query("SELECT a.registrations FROM Attendee a WHERE a.id = :attendeeId")
-	List<Registration> getRegistrationsByAttendee(@Param("attendeeId") int attendeeId);
+	@Query("SELECT a.registrations FROM Attendee a WHERE a.id = ?1")
+	List<Registration> getRegistrationsByAttendee(int attendeeId);
 
-	
 }

@@ -10,9 +10,10 @@ import com.eventmanagement.entity.Registration;
 
 public interface RegistrationRepository extends JpaRepository<Registration, Integer> {
 
-	@Query("SELECT r FROM Registration r WHERE r.event.id = :eventId")
-	List<Registration> getRegistrationByEventId(@Param("eventId") Integer eventId);
-	
-	@Query("SELECT r FROM Registration r WHERE r.attendee.id = :attendeeId")
-	List<Registration> getRegistrationByAttendeeId(@Param("attendeeId") Integer attendeeId);
+	@Query("SELECT r FROM Registration r WHERE r.event.id = ?1")
+	List<Registration> getRegistrationByEventId(Integer eventId);
+
+	@Query("SELECT r FROM Registration r WHERE r.attendee.id = ?1")
+	List<Registration> getRegistrationByAttendeeId(Integer attendeeId);
+
 }

@@ -10,10 +10,10 @@ import com.eventmanagement.entity.Attendee;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
 	
-	@Query("SELECT r.attendee FROM Registration r WHERE r.event.id = :eventId")
-	List<Attendee> getAttendeesByEventId(@Param("eventId") int eventId);
+	@Query("SELECT r.attendee FROM Registration r WHERE r.event.id = ?1")
+	List<Attendee> getAttendeesByEventId(int eventId);
 
-	@Query("SELECT e FROM Event e WHERE e.organizer.id = :organizerId")
-	List<Event> getEventsByOrganizerId(@Param("organizerId") int organizerId);
+	@Query("SELECT e FROM Event e WHERE e.organizer.id = ?1")
+	List<Event> getEventsByOrganizerId(int organizerId);
 
 }
