@@ -47,7 +47,6 @@ public class AttendeeService {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-
 	public ResponseEntity<ResponseStructure<Attendee>> findAttendeeById(int id) {
 		Optional<Attendee> attendee = attendeeDao.findById(id);
 

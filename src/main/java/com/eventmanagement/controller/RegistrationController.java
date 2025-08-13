@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.eventmanagement.dto.ResponseStructure;
 import com.eventmanagement.entity.Registration;
+import com.eventmanagement.entity.Venue;
 import com.eventmanagement.service.RegistrationService;
 
 @RestController
@@ -46,4 +47,9 @@ public class RegistrationController {
     public ResponseEntity<ResponseStructure<List<Registration>>> getRegistrationByAttendee(@PathVariable int id) {
         return registrationService.getRegistrationByAttendee(id);
     }
+    @GetMapping("/pagination/{pagenumber}/{pagesize}/{feild}")
+	public ResponseEntity<ResponseStructure<List<Registration>>> getVenueByPaginationAndSorting(@PathVariable int pagenumber,
+			@PathVariable int pagesize, @PathVariable String feild) {
+		return registrationService.getRegistrationByPaginationAndSorting(pagenumber, pagesize, feild);
+	}
 }

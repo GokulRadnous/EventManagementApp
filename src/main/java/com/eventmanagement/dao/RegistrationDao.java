@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.eventmanagement.entity.Registration;
+import com.eventmanagement.entity.Venue;
 import com.eventmanagement.repository.RegistrationRepository;
 
 @Repository
@@ -37,5 +41,8 @@ public class RegistrationDao {
 
 	public List<Registration> getRegistrationByAttendee(int id) {
 		return registrationRepository.getRegistrationByAttendeeId(id);
+	}
+	public Page<Registration> getRegistrationByPaginationAndSorting(int pageNumber, int pageSize, String field) {
+		return registrationRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by(field).ascending()));
 	}
 }

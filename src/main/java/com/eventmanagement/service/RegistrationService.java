@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,9 @@ import com.eventmanagement.dao.RegistrationDao;
 import com.eventmanagement.dto.ResponseStructure;
 import com.eventmanagement.entity.Attendee;
 import com.eventmanagement.entity.Event;
+import com.eventmanagement.entity.Organizer;
 import com.eventmanagement.entity.Registration;
+import com.eventmanagement.entity.Venue;
 import com.eventmanagement.exception.IdNotFoundException;
 import com.eventmanagement.exception.NoRecordAvailableException;
 import com.eventmanagement.repository.AttendeeRepository;
@@ -62,7 +65,7 @@ public class RegistrationService {
 			response.setStatusCode(HttpStatus.OK.value());
 			response.setMessage("All Registrations retrieved successfully");
 			response.setData(registrations);
-			return new ResponseEntity<>(response, HttpStatus.OK); // ✅ RETURN here
+			return new ResponseEntity<>(response, HttpStatus.OK); 
 		}
 
 		throw new NoRecordAvailableException("Database is empty. No registration records found.");
@@ -128,5 +131,19 @@ public class RegistrationService {
 		}
 
 		throw new NoRecordAvailableException("No registrations found for Attendee ID " + id);
+	}
+
+	public ResponseEntity<ResponseStructure<List<Registration>>> getRegistrationByPaginationAndSorting(int pageNumber, int pageSize, String field) {
+	    Page<Registration> registrationPage = registrationDao.getRegistrationByPaginationAndSorting(pageNumber, pageSize, field);
+
+	    if (!registrationPage.isEmpty()) {
+	        ResponseStructure<List<Registration>> response = new ResponseStructure<>();
+	        response.setStatusCode(HttpStatus.OK.value());
+	        response.setMessage("Retrieved registrations sorted by field: " + field);
+	        response.setData(registrationPage.getContent());
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    }
+
+	    throw new NoRecordAvailableException("No registrations found for page " + pageNumber + " with size " + pageSize);
 	}
 }
