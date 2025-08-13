@@ -11,8 +11,7 @@ A Spring Boot project for managing events, attendees, and registrations.
 ## Tech Stack
 - Java
 - Spring Boot
-- JPA/Hibernate
-- MySQL or H2
+- PostgreSQL
 
 ## Author
 Gokul Soundar S – [GitHub Profile](https://github.com/GokulRadnous)
